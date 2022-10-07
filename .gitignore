@@ -11,7 +11,7 @@
 *.gch
 *.pch
 
-*.idea
+.idea/
 
 # Compiled Dynamic libraries
 *.so
