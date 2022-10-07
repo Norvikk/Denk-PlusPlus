@@ -1,0 +1,3 @@
+C:/Users/iordm/CLionProjects/Denk-PlusPlus/cmake-build-debug/CMakeFiles/Denk_PlusPlus.dir
+C:/Users/iordm/CLionProjects/Denk-PlusPlus/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/iordm/CLionProjects/Denk-PlusPlus/cmake-build-debug/CMakeFiles/rebuild_cache.dir
