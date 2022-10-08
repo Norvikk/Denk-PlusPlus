@@ -4,4 +4,4 @@ project(Denk_PlusPlus)
 set(CMAKE_CXX_STANDARD 14)
 
 add_executable(Denk_PlusPlus
-        DenkPlusPlus/main.cpp)
+        DenkPlusPlus/RootMain.cpp DenkPlusPlus/Protocols/Encrypt.cpp DenkPlusPlus/Protocols/Protocols.h DenkPlusPlus/Protocols/Decrypt.cpp DenkPlusPlus/Protocols/DataTypes/DataTypes.h DenkPlusPlus/PlayGround.cpp)
