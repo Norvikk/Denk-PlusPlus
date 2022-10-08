@@ -1,31 +1,39 @@
 #include <iostream>
 #include "Protocols/Protocols.h"
+#include "Protocols/DataTypes/UniversalData.h"
 #include "PlayGround.cpp"
 
 using namespace std;
 using namespace Protocols;
 using namespace Playground;
 
+int ext_iterationData;
+string ext_messageData, brickedDataPath, keysDataPath;
+string protocol = "1";
 
 int main() {
+    srand(time(NULL));
     // Playground::MainPlayground();
 
     cout << "Denk-PlusPlus by Norvik | V. 1" << endl;
-    string protocol, messageData, iterationData, brickedDataPath, keysDataPath;
+
+    ext_iterationData = 15;
+    ext_messageData = "asdfasdf";
 
 
-    cout << "[1] Encrypt\n[2] Decrypt" << endl;
-    cin >> protocol;
+
+   // cout << "[1] Encrypt\n[2] Decrypt" << endl;
+   // cin >> protocol;
 
     if (protocol == "1") {
-        cout << "Message to encrypt:" << endl;
-        cin >> messageData;
+        //cout << "Message to encrypt:" << endl;
+        //cin >> ext_messageData;
 
-        cout << "Iteration count: (at least 10)" << endl;
-        cin >> iterationData;
+       // cout << "Iteration count: (at least 10)" << endl;
+       // cin >> EXT_iterationData;
 
-        if (stoi(iterationData) <= 10) throw invalid_argument(iterationData + " is not more than 10");
-        Protocols::EncryptClass::encrypt(messageData, stoi(iterationData));
+       // if (stoi(EXT_iterationData) <= 10) throw invalid_argument(EXT_iterationData + " is not more than 10");
+        Protocols::EncryptClass::encrypt();
 
 
     } else if (protocol == "2") {

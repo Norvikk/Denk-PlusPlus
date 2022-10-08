@@ -1,17 +1,31 @@
 #pragma once
+
 #include <iostream>
+#include "DataTypes/DataTypes.h"
+
 using namespace std;
+using namespace DataTypes;
 
 namespace Protocols {
 
-    class EncryptClass{
+    class EncryptClass {
+
     public:
-        static void encrypt(const string& message, int iterations);
+        static string randomString(int len);
+
+        static void encrypt();
+
+        static void getKeys();
+
+
+        class Data {
+
+        };
     };
 
-    class DecryptClass{
+    class DecryptClass {
     public:
-        static void decrypt(const string& pathToBrick, const string& pathToKey);
+        static void decrypt(const string &pathToBrick, const string &pathToKey);
     };
 
 }

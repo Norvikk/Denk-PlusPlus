@@ -26,7 +26,7 @@ namespace DataTypes {
         public:
             struct Key {
                 string shuffle;
-                string letter;
+                char letter;
             };
         };
     };
