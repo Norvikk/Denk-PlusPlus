@@ -17,15 +17,20 @@ namespace Protocols {
 
         static void getKeys();
 
+        static void expelKeys();
 
-        class Data {
+        static void expelCrypt();
 
-        };
+        static void processData();
+
+        static void writeDataToFile();
+
+        static void writeKeysToFile();
     };
 
     class DecryptClass {
     public:
-        static void decrypt(const string &pathToBrick, const string &pathToKey);
+        static void decrypt();
     };
 
 }

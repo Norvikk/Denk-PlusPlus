@@ -1,31 +1,27 @@
 #include <iostream>
 #include "Protocols/DataTypes/DataTypes.h"
+#include "sysinfoapi.h"
+#include "list"
+#include <algorithm>
+#include <chrono>
 
 using namespace std;
 using namespace DataTypes;
 
 namespace Playground {
     static void MainPlayground() {
-        cout << "Main playground area" << endl;
+        auto start = chrono::high_resolution_clock::now();
 
-        DataTypes::DataTypesClass::Student Hex;
-        Hex.age = 69420;
-        Hex.born[1] = 18;
-        Hex.born[2] = 3;
-        Hex.born[3] = 1954;
-
-        Hex.creditCard = 494320891;
-        Hex.hairAmount = 466593655454542;
-
-        Hex.firstName = "HexO";
-        Hex.lastName = "fDoom";
-
-        Hex.height = 184.4;
-        Hex.width = 350.1;
+        list<int> used;
+        int carrier1;
+        for (int I = 0; I < 1000000; I++) {
+            used.push_back(rand() % 900);
+        }
 
 
-        cout << Hex.age << Hex.born[1] << Hex.born[2] << Hex.born[3] << Hex.creditCard << Hex.hairAmount
-             << Hex.firstName << Hex.lastName << Hex.width << Hex.height << endl;
+        auto finish = std::chrono::high_resolution_clock::now();
+        chrono::duration<double> elapsed = (finish - start) * 1000;
+        cout << endl << "Elapsed time: " << elapsed.count() << " ms\n";
     }
 
 }
