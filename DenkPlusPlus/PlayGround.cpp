@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Protocols/DataTypes/DataTypes.h"
+#include "DataTypes/DataTypes.h"
 #include "sysinfoapi.h"
 #include "list"
 #include <algorithm>

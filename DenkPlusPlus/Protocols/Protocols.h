@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include "DataTypes/DataTypes.h"
+#include "../DataTypes/DataTypes.h"
 
 using namespace std;
 using namespace DataTypes;

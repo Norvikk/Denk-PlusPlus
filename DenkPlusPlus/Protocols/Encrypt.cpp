@@ -1,6 +1,6 @@
 #include "Protocols.h"
-#include "DataTypes/DataTypes.h"
-#include "DataTypes/UniversalData.h"
+#include "../DataTypes/DataTypes.h"
+#include "../DataTypes/UniversalData.h"
 #include <iostream>
 #include "list"
 #include <chrono>
@@ -101,7 +101,7 @@ void EncryptClass::processData() {
 }
 
 void EncryptClass::writeDataToFile() {
-    ofstream MyFile("../DenkPlusPlus/output.txt");
+    ofstream MyFile("../Output/output.txt");
     for (string const &s: ext_processedData) {
         MyFile << s;
     }
@@ -109,7 +109,7 @@ void EncryptClass::writeDataToFile() {
 }
 
 void EncryptClass::writeKeysToFile() {
-    ofstream MyFile("../DenkPlusPlus/keys.txt");
+    ofstream MyFile("../Output/keys.txt");
     for (carrier = ext_keys.begin(); carrier != ext_keys.end(); carrier++) {
         MyFile << carrier->letter << " " << carrier->shuffle << " " << endl;
     }

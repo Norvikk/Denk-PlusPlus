@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Protocols/Protocols.h"
 #include "PlayGround.cpp"
-#include "Protocols/DataTypes/UniversalData.h"
+#include "DataTypes/UniversalData.h"
 
 
 using namespace std;
@@ -10,8 +10,8 @@ using namespace Playground;
 using namespace ProcessData;
 
 
-int    ProcessData::ext_iterationData = 512;
-string ProcessData::ext_messageData = "This message should be fully readable by the time it is decrypted, well hopefully at least.";
+int    ProcessData::ext_iterationData = 1000000;
+string ProcessData::ext_messageData = "This message should be fully readable by";
 string ProcessData::ext_brickedDataPath;
 string ProcessData::ext_keysDataPath;
 
