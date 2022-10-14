@@ -6,12 +6,12 @@ using namespace std;
 using namespace DataTypes;
 
 namespace ProcessData {
-    extern string ext_messageData;
-    extern string ext_brickedDataPath;
-    extern string ext_keysDataPath;
+    extern string ext_messageData, ext_brickedDataPath, ext_keysDataPath;
     extern int ext_iterationData;
     extern list <DataTypesClass::ProtocolTypesClass::Key> ext_keys;
     extern list <string> ext_processedData;
+    extern bool ext_isDebugging;
+    extern bool ext_isTestingSpeed;
 }
 
 

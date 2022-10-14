@@ -26,6 +26,8 @@ namespace Protocols {
         static void writeDataToFile();
 
         static void writeKeysToFile();
+
+        static void expelDecrypted();
     };
 
     class DecryptClass {
