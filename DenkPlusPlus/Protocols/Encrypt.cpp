@@ -8,6 +8,7 @@
 #include <fstream>
 #include <string>
 #include <cmath>
+#include <algorithm>
 
 using namespace KennyLibraries;
 using namespace Protocols;
@@ -17,7 +18,7 @@ using namespace std;
 
 
 list<DataTypesClass::ProtocolTypesClass::Key> ProcessData::ext_keys;
-list<DataTypesClass::ProtocolTypesClass::Key>::iterator carrier;
+list<DataTypesClass::ProtocolTypesClass::Key>::iterator iteratorKeys;
 list<string> ProcessData::ext_processedData;
 
 
@@ -28,47 +29,33 @@ void EncryptClass::encrypt() {
     Protocols::EncryptClass::processData();
     Protocols::EncryptClass::writeDataToFile();
     Protocols::EncryptClass::writeKeysToFile();
+    Protocols::EncryptClass::expelDecrypted();
     if (ext_isDebugging){
         Protocols::EncryptClass::expelKeys();
         Protocols::EncryptClass::expelCrypt();
         Protocols::EncryptClass::expelDecrypted();
     }
 
-    chrono::duration<double> elapsed = (chrono::high_resolution_clock::now() - start) * 1000;
-    cout << endl << "Rounded Elapsed Time: " << round(elapsed.count())  << " ms"  << endl << "Full Elapsed Time: " << elapsed.count() << " ms" <<endl <<endl;
+    auto finish = std::chrono::high_resolution_clock::now();
+    chrono::duration<double> elapsed = (finish - start) * 1000;
+    cout << endl << ProcessData::ext_iterationData << " Iterations" << endl << ext_messageData.size() << " chars" << endl;
+    cout << "Rounded Elapsed Time: " << round(elapsed.count())  << " ms"  << endl << "Full Elapsed Time: " << elapsed.count() << " ms" <<endl <<endl;
 }
 
 void EncryptClass::getKeys() {
-    bool requiresCreation;
+    list<char> used; DataTypesClass::ProtocolTypesClass::Key temporary;
     for (char c: ext_messageData) {
-        if (ext_isDebugging) cout << "I ran " << c << endl;
-        requiresCreation = true;
-
-        for (carrier = ext_keys.begin(); carrier != ext_keys.end(); carrier++) {
-            if (carrier->letter == c) {
-                requiresCreation = false;
-                if (ext_isDebugging) cout << "Letter already exists" << endl;
-                break;
-            }
-        }
-
-        if (requiresCreation) {
-            DataTypesClass::ProtocolTypesClass::Key temporary;
+        if(!(find(used.begin(), used.end(), c) != used.end())){
             temporary.letter = c;
             temporary.shuffle = KennyLibraries::Get::randomString(ext_iterationData);
-            for (carrier = ext_keys.begin(); carrier != ext_keys.end(); carrier++) {
-                if (carrier->shuffle == temporary.shuffle) temporary.shuffle = KennyLibraries::Get::randomString(ext_iterationData);
-            }
             ext_keys.push_back(temporary);
-            if (ext_isDebugging) cout << "new letter " << c << " has been created" << endl;
-            if (ext_isDebugging) cout << "new shuffle " << temporary.shuffle << " has been created" << endl;
-        }
+            used.push_back(c);  }
     }
 }
 
 void EncryptClass::expelKeys() {
-    for (carrier = ext_keys.begin(); carrier != ext_keys.end(); carrier++) {
-        cout << carrier->letter << "||" << carrier->shuffle << endl;
+    for (iteratorKeys = ext_keys.begin(); iteratorKeys != ext_keys.end(); iteratorKeys++) {
+        cout << iteratorKeys->letter << "||" << iteratorKeys->shuffle << endl;
     }
 }
 
@@ -82,9 +69,9 @@ void EncryptClass::expelCrypt() {
 void EncryptClass::processData() {
     if (ext_isDebugging) cout << "size of message " << ext_messageData.size() << endl;
     for (char c: ext_messageData) {
-        for (carrier = ext_keys.begin(); carrier != ext_keys.end(); carrier++) {
-            if (carrier->letter == c)
-                ext_processedData.push_back(carrier->shuffle);
+        for (iteratorKeys = ext_keys.begin(); iteratorKeys != ext_keys.end(); iteratorKeys++) {
+            if (iteratorKeys->letter == c)
+                ext_processedData.push_back(iteratorKeys->shuffle);
         }
     }
 }
@@ -97,14 +84,14 @@ void EncryptClass::writeDataToFile() {
 
 void EncryptClass::writeKeysToFile() {
     ofstream MyFile("../DenkPlusPlus/Output/Keys.txt");
-    for (carrier = ext_keys.begin(); carrier != ext_keys.end(); carrier++) {MyFile << carrier->letter << " " << carrier->shuffle << " " << endl;}
+    for (iteratorKeys = ext_keys.begin(); iteratorKeys != ext_keys.end(); iteratorKeys++) {MyFile << iteratorKeys->letter << " " << iteratorKeys->shuffle << " " << endl;}
     MyFile.close();
 }
 
 void EncryptClass::expelDecrypted() {
     for (string const &s: ext_processedData) {
-        for (carrier = ext_keys.begin(); carrier != ext_keys.end(); carrier++) {
-            if (carrier->shuffle == s) { cout << carrier->letter; }
+        for (iteratorKeys = ext_keys.begin(); iteratorKeys != ext_keys.end(); iteratorKeys++) {
+            if (iteratorKeys->shuffle == s) { cout << iteratorKeys->letter; }
         }
     }
 }

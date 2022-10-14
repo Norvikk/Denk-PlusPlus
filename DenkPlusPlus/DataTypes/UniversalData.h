@@ -11,7 +11,6 @@ namespace ProcessData {
     extern list <DataTypesClass::ProtocolTypesClass::Key> ext_keys;
     extern list <string> ext_processedData;
     extern bool ext_isDebugging;
-    extern bool ext_isTestingSpeed;
 }
 
 

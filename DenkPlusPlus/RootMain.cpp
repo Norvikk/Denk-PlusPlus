@@ -9,21 +9,20 @@ using namespace Protocols;
 using namespace Playground;
 using namespace ProcessData;
 
+string ProcessData::ext_brickedDataPath, ProcessData::ext_keysDataPath, protocol;
 
-bool ProcessData::ext_isDebugging = false, ProcessData::ext_isTestingSpeed = false,
-    isPlayground = false;
-int ProcessData::ext_iterationData = 1000;
-string ProcessData::ext_brickedDataPath, ProcessData::ext_keysDataPath,
-    ProcessData::ext_messageData = "1234567890qwertzuiopasdfghjklyxcvbnm",
-    protocol = "1";
-
+bool ProcessData::ext_isDebugging = false;
+bool isPlayground = false;
+int ProcessData::ext_iterationData = 100;
+string ProcessData::ext_messageData = "I sure hope this program does not break";
 
 int main() {
     srand(GetTickCount());
-    cout << "Denk-PlusPlus by Norvik | V. 1" << endl;
     if (isPlayground) Playground::MainPlayground();
     else Protocols::EncryptClass::encrypt();
 
+    cin >> protocol;
+    cout << "Denk-PlusPlus by Norvik | V. 1" << endl;
     cout << "[1] Encrypt\n[2] Decrypt" << endl;
     cin >> protocol;
     if (protocol == "1") {
