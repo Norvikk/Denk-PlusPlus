@@ -11,21 +11,13 @@ namespace Protocols {
     class EncryptClass {
 
     public:
-        static string randomString(int len);
-
         static void encrypt();
-
-        static void getKeys();
-
-        static void expelKeys();
 
         static void expelCrypt();
 
         static void processData();
 
         static void writeDataToFile();
-
-        static void writeKeysToFile();
 
         static void expelDecrypted();
     };

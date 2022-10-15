@@ -13,7 +13,7 @@ string ProcessData::ext_brickedDataPath, ProcessData::ext_keysDataPath, protocol
 
 bool ProcessData::ext_isDebugging = false;
 bool isPlayground = false;
-int ProcessData::ext_iterationData = 100;
+int ProcessData::ext_iterationData = 1000000;
 string ProcessData::ext_messageData = "I sure hope this program does not break";
 
 int main() {
