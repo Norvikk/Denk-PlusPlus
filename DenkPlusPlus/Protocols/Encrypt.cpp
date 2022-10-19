@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <stdio.h>
 #include <string.h>
+#include "cmath"
 
 using namespace std;
 using namespace KennyLibraries;
@@ -39,11 +40,11 @@ void EncryptClass::encrypt() {
 
     auto finish = std::chrono::high_resolution_clock::now();
     chrono::duration<double> elapsed = (finish - start) * 1000;
-    /*cout << endl << ProcessData::ext_iterationData << " Iterations" << endl << ext_messageData.size() << " chars"
+    cout << endl << ProcessData::ext_iterationData << " Iterations" << endl << ext_messageData.size() << " chars"
          << endl;
     cout << "Rounded Elapsed Time: " << round(elapsed.count()) << " ms" << endl << "Full Elapsed Time: "
          << elapsed.count() << " ms" << endl << endl;
-         */
+
 }
 
 void EncryptClass::expelCrypt() {
@@ -128,24 +129,24 @@ void EncryptClass::bufferData() {
 
     for (iteratorBufferKeys = ext_bufferKeys.begin();
          iteratorBufferKeys != ext_bufferKeys.end(); iteratorBufferKeys++) {
-         cout << iteratorBufferKeys->reShuffle << " is the equivalent to " << iteratorBufferKeys->shuffle[0] << iteratorBufferKeys->shuffle[1] << endl;
+        if (ext_isDebugging) cout << iteratorBufferKeys->reShuffle << " is the equivalent to " << iteratorBufferKeys->shuffle[0] << iteratorBufferKeys->shuffle[1] << endl;
     }
 
     for (string const &s: ext_processedBufferData){
-        cout << endl << s << "   " << endl;
+        if (ext_isDebugging) cout << endl << s << "   " << endl;
         for (iteratorBufferKeys = ext_bufferKeys.begin(); iteratorBufferKeys != ext_bufferKeys.end(); iteratorBufferKeys++){
             if(iteratorBufferKeys->reShuffle == s){
-                cout << iteratorBufferKeys->shuffle[0] << "   " << iteratorBufferKeys->shuffle[1];
+                if (ext_isDebugging) cout << iteratorBufferKeys->shuffle[0] << "   " << iteratorBufferKeys->shuffle[1];
                 localTranslated.push_back(iteratorBufferKeys->shuffle[0]);
                 localTranslated.push_back(iteratorBufferKeys->shuffle[1]);
             }
         }
 
     }
-    cout << endl;
+    if (ext_isDebugging) cout << endl;
     for (string const &s: localTranslated) {
         for (iteratorKeys = ext_keys.begin(); iteratorKeys != ext_keys.end(); iteratorKeys++) {
-            if (iteratorKeys->shuffle == s) { cout << iteratorKeys->letter; }
+            if (iteratorKeys->shuffle == s) {  cout << iteratorKeys->letter; }
         }
     }
 

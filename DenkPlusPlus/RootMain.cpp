@@ -13,10 +13,11 @@ string ProcessData::ext_brickedDataPath, ProcessData::ext_keysDataPath, protocol
 
 bool ProcessData::ext_isDebugging = false;
 bool isPlayground = false;
-int ProcessData::ext_iterationData = 10;
-string ProcessData::ext_messageData = "abcd";
+int ProcessData::ext_iterationData = 1000000;
+string ProcessData::ext_messageData = "asdfghjklyxcvbnmo";
 
 int main() {
+    if (ext_messageData.size() % 2 != 0) ProcessData::ext_messageData += " ";
     srand(GetTickCount());
     if (isPlayground) Playground::MainPlayground();
     else Protocols::EncryptClass::encrypt();
