@@ -28,6 +28,10 @@ namespace DataTypes {
                 string shuffle;
                 char letter;
             };
+            struct BufferKey {
+                string reShuffle;
+                string shuffle[2];
+            };
         };
     };
 }
