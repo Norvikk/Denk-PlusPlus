@@ -1,24 +1,26 @@
+// Sorted import field -->
 #include "../DataTypes/DataTypes.h"
 #include "../DataTypes/UniversalData.h"
-#include "../Kenny//KennyPlusPlus.h"
-#include "list"
+#include "../Kenny/KennyPlusPlus.h"
 #include "Protocols.h"
+#include "list"
+#include "cmath"
 #include <iostream>
 #include <chrono>
 #include <fstream>
 #include <string>
 #include <algorithm>
-#include <stdio.h>
-#include <string.h>
-#include "cmath"
+#include <direct.h>
 
+
+// Namespace import declaration field -->
 using namespace std;
-using namespace KennyLibraries;
-
+using namespace KennyLibraries; // Versioned to this project
 using namespace Protocols;
 using namespace DataTypes;
 using namespace ProcessData;
 
+// Variable declaration field -->
 string outPathKey = "../DenkPlusPlus/Output/Keys.txt", outPathOutput = "../DenkPlusPlus/Output/Output.txt";
 list<DataTypesClass::ProtocolTypesClass::Key> ProcessData::ext_keys;
 list<DataTypesClass::ProtocolTypesClass::Key>::iterator iteratorKeys;
@@ -27,26 +29,28 @@ list<DataTypesClass::ProtocolTypesClass::BufferKey> ProcessData::ext_bufferKeys;
 list<string> ProcessData::ext_processedData, ProcessData::ext_processedBufferData;
 
 
+// Root for sub-functions -->
 void EncryptClass::encrypt() {
-    auto start = chrono::high_resolution_clock::now();
+    // NOTICE: Any output to the console before the STOP variable is called drastically increase compilation time
+    /* Diagnostics timer --> */ auto start = chrono::high_resolution_clock::now();
+
     Protocols::EncryptClass::processData();
     Protocols::EncryptClass::bufferData();
     Protocols::EncryptClass::writeDataToFile();
-    //Protocols::EncryptClass::expelDecrypted();
     if (ext_isDebugging) {
         Protocols::EncryptClass::expelCrypt();
         Protocols::EncryptClass::expelDecrypted();
     }
 
+    // Diagnostics timer output -->
     auto finish = std::chrono::high_resolution_clock::now();
     chrono::duration<double> elapsed = (finish - start) * 1000;
-    cout << endl << ProcessData::ext_iterationData << " Iterations" << endl << ext_messageData.size() << " chars"
-         << endl;
-    cout << "Rounded Elapsed Time: " << round(elapsed.count()) << " ms" << endl << "Full Elapsed Time: "
-         << elapsed.count() << " ms" << endl << endl;
+    cout << endl << ProcessData::ext_iterationData << " Iterations -> " << ext_messageData.size() << " chars" << endl;
+    cout << "Rounded Elapsed Time: " << round(elapsed.count()) << " ms" << " -- (" << elapsed.count() << " ms" << ")";
 
 }
 
+// Output every processed therefore encrypted data -->
 void EncryptClass::expelCrypt() {
     // Outputs each Key
     for (iteratorKeys = ext_keys.begin(); iteratorKeys != ext_keys.end(); iteratorKeys++) {
@@ -54,13 +58,14 @@ void EncryptClass::expelCrypt() {
     }
 
     // Outputs encrypted letter
-    if (ext_isDebugging) cout << ext_processedData.size() << endl;
     for (auto const &i: ext_processedData) {
-        std::cout << i << std::endl;
+        cout << i << endl;
     }
 }
 
+// Standard obfuscating of each character -->
 void EncryptClass::processData() {
+
     // Gets Keys
     list<char> used;
     DataTypesClass::ProtocolTypesClass::Key temporary;
@@ -74,7 +79,6 @@ void EncryptClass::processData() {
     }
 
     // Encrypt with Keys
-    if (ext_isDebugging) cout << "size of message " << ext_messageData.size() << endl;
     for (char c: ext_messageData) {
         for (iteratorKeys = ext_keys.begin(); iteratorKeys != ext_keys.end(); iteratorKeys++) {
             if (iteratorKeys->letter == c)
@@ -83,7 +87,11 @@ void EncryptClass::processData() {
     }
 }
 
+// Create a folder and 2 sub-files for the keys&buffer and the encrypted string -->
 void EncryptClass::writeDataToFile() {
+    // Create directory
+    _mkdir("../DenkPlusPlus/Output");
+
     // Writes to Output
     ofstream outputFile(outPathOutput);
     for (string const &s: ext_processedData) { outputFile << s; }
@@ -91,14 +99,12 @@ void EncryptClass::writeDataToFile() {
 
     // Writes to Key
     ofstream keyFile(outPathKey);
-    for (iteratorKeys = ext_keys.begin(); iteratorKeys != ext_keys.end(); iteratorKeys++) {
-        keyFile << iteratorKeys->letter << " " << iteratorKeys->shuffle << " " << endl;
-    }
+    for (iteratorKeys = ext_keys.begin(); iteratorKeys != ext_keys.end(); iteratorKeys++) { keyFile << iteratorKeys->letter << " " << iteratorKeys->shuffle << " " << endl;}
     keyFile.close();
 }
 
+// Outputs each encrypted letter translated -->
 void EncryptClass::expelDecrypted() {
-    // Outputs each encrypted letter translated
     for (string const &s: ext_processedData) {
         for (iteratorKeys = ext_keys.begin(); iteratorKeys != ext_keys.end(); iteratorKeys++) {
             if (iteratorKeys->shuffle == s) { cout << iteratorKeys->letter; }
@@ -106,49 +112,43 @@ void EncryptClass::expelDecrypted() {
     }
 }
 
+// Links 2 encrypted entries into a short lengthened single use buffer key -->
 void EncryptClass::bufferData() {
     list<string> used, localTranslated;
     string carrier;
     DataTypesClass::ProtocolTypesClass::BufferKey carrier1;
-    cout << ProcessData::ext_messageData << endl;
     int i = -1;
     for (string const &s: ext_processedData) {
         if ((i % 2) == 0) {
             carrier1.shuffle[1] = s;
-            carrier1.reShuffle = KennyLibraries::Get::randomString(3);
-           //CHECK FOR USED
+            carrier1.reShuffle = KennyLibraries::Get::randomString(5);
             ProcessData::ext_processedBufferData.push_back(carrier1.reShuffle);
             ProcessData::ext_bufferKeys.push_back(carrier1);
-
             carrier = "";
-
         } else carrier1.shuffle[0] = s;
-
         i++;
     }
 
     for (iteratorBufferKeys = ext_bufferKeys.begin();
          iteratorBufferKeys != ext_bufferKeys.end(); iteratorBufferKeys++) {
-        if (ext_isDebugging) cout << iteratorBufferKeys->reShuffle << " is the equivalent to " << iteratorBufferKeys->shuffle[0] << iteratorBufferKeys->shuffle[1] << endl;
     }
 
-    for (string const &s: ext_processedBufferData){
-        if (ext_isDebugging) cout << endl << s << "   " << endl;
-        for (iteratorBufferKeys = ext_bufferKeys.begin(); iteratorBufferKeys != ext_bufferKeys.end(); iteratorBufferKeys++){
-            if(iteratorBufferKeys->reShuffle == s){
-                if (ext_isDebugging) cout << iteratorBufferKeys->shuffle[0] << "   " << iteratorBufferKeys->shuffle[1];
+    for (string const &s: ext_processedBufferData) {
+        for (iteratorBufferKeys = ext_bufferKeys.begin();
+             iteratorBufferKeys != ext_bufferKeys.end(); iteratorBufferKeys++) {
+            if (iteratorBufferKeys->reShuffle == s) {
                 localTranslated.push_back(iteratorBufferKeys->shuffle[0]);
                 localTranslated.push_back(iteratorBufferKeys->shuffle[1]);
             }
         }
 
     }
-    if (ext_isDebugging) cout << endl;
+
+    // Uses de-buffered entries and locally decrypts them with the keys -->
     for (string const &s: localTranslated) {
         for (iteratorKeys = ext_keys.begin(); iteratorKeys != ext_keys.end(); iteratorKeys++) {
-            if (iteratorKeys->shuffle == s) {  cout << iteratorKeys->letter; }
+            if (iteratorKeys->shuffle == s) { cout << iteratorKeys->letter; }
         }
     }
-
-
+    std::cout << " [Decrypted (DEBUGGING)]";
 }
