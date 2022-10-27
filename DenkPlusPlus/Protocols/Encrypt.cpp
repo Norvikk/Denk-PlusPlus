@@ -14,7 +14,6 @@
 
 
 // Namespace import declaration field -->
-using namespace std;
 using namespace KennyLibraries; // Versioned to this project
 using namespace Protocols;
 using namespace DataTypes;
@@ -37,6 +36,7 @@ void EncryptClass::encrypt() {
     Protocols::EncryptClass::processData();
     Protocols::EncryptClass::bufferData();
     Protocols::EncryptClass::writeDataToFile();
+
     if (ext_isDebugging) {
         Protocols::EncryptClass::expelCrypt();
         Protocols::EncryptClass::expelDecrypted();
@@ -45,8 +45,8 @@ void EncryptClass::encrypt() {
     // Diagnostics timer output -->
     auto finish = std::chrono::high_resolution_clock::now();
     chrono::duration<double> elapsed = (finish - start) * 1000;
-    cout << endl << ProcessData::ext_iterationData << " Iterations -> " << ext_messageData.size() << " chars" << endl;
-    cout << "Rounded Elapsed Time: " << round(elapsed.count()) << " ms" << " -- (" << elapsed.count() << " ms" << ")";
+    std::cout << endl << ProcessData::ext_iterationData << " Iterations -> " << ext_messageData.size() << " chars" << endl;
+    std::cout << "Rounded Elapsed Time: " << round(elapsed.count()) << " ms" << " -- (" << elapsed.count() << " ms" << ")";
 
 }
 
@@ -54,12 +54,12 @@ void EncryptClass::encrypt() {
 void EncryptClass::expelCrypt() {
     // Outputs each Key
     for (iteratorKeys = ext_keys.begin(); iteratorKeys != ext_keys.end(); iteratorKeys++) {
-        cout << iteratorKeys->letter << "||" << iteratorKeys->shuffle << endl;
+        std::cout << iteratorKeys->letter << "||" << iteratorKeys->shuffle << endl;
     }
 
     // Outputs encrypted letter
     for (auto const &i: ext_processedData) {
-        cout << i << endl;
+        std::cout << i << endl;
     }
 }
 
@@ -100,6 +100,8 @@ void EncryptClass::writeDataToFile() {
     // Writes to Key
     ofstream keyFile(outPathKey);
     for (iteratorKeys = ext_keys.begin(); iteratorKeys != ext_keys.end(); iteratorKeys++) { keyFile << iteratorKeys->letter << " " << iteratorKeys->shuffle << " " << endl;}
+    keyFile << endl << endl << endl << endl;
+    for (iteratorBufferKeys = ext_bufferKeys.begin(); iteratorBufferKeys != ext_bufferKeys.end(); iteratorBufferKeys++) { keyFile << iteratorBufferKeys->shuffle[0] << iteratorBufferKeys->shuffle[1] << " " << iteratorBufferKeys->reShuffle << " " << endl;}
     keyFile.close();
 }
 
@@ -121,7 +123,7 @@ void EncryptClass::bufferData() {
     for (string const &s: ext_processedData) {
         if ((i % 2) == 0) {
             carrier1.shuffle[1] = s;
-            carrier1.reShuffle = KennyLibraries::Get::randomString(5);
+            carrier1.reShuffle = KennyLibraries::Get::randomString(64);
             ProcessData::ext_processedBufferData.push_back(carrier1.reShuffle);
             ProcessData::ext_bufferKeys.push_back(carrier1);
             carrier = "";
@@ -152,3 +154,4 @@ void EncryptClass::bufferData() {
     }
     std::cout << " [Decrypted (DEBUGGING)]";
 }
+

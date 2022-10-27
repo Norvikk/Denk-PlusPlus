@@ -22,6 +22,7 @@ namespace Protocols {
         static void expelDecrypted();
 
         static void bufferData();
+
     };
 
     class DecryptClass {
