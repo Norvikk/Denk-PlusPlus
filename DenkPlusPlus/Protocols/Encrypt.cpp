@@ -116,34 +116,26 @@ void EncryptClass::bufferData() {
         if ((i % 2) == 0) {
             carrier1.shuffle[1] = s;
             carrier1.reShuffle = KennyLibraries::Get::randomString(3);
-           //CHECK FOR USED
             ProcessData::ext_processedBufferData.push_back(carrier1.reShuffle);
             ProcessData::ext_bufferKeys.push_back(carrier1);
-
             carrier = "";
-
         } else carrier1.shuffle[0] = s;
-
         i++;
     }
 
     for (iteratorBufferKeys = ext_bufferKeys.begin();
          iteratorBufferKeys != ext_bufferKeys.end(); iteratorBufferKeys++) {
-        if (ext_isDebugging) cout << iteratorBufferKeys->reShuffle << " is the equivalent to " << iteratorBufferKeys->shuffle[0] << iteratorBufferKeys->shuffle[1] << endl;
     }
 
     for (string const &s: ext_processedBufferData){
-        if (ext_isDebugging) cout << endl << s << "   " << endl;
         for (iteratorBufferKeys = ext_bufferKeys.begin(); iteratorBufferKeys != ext_bufferKeys.end(); iteratorBufferKeys++){
             if(iteratorBufferKeys->reShuffle == s){
-                if (ext_isDebugging) cout << iteratorBufferKeys->shuffle[0] << "   " << iteratorBufferKeys->shuffle[1];
                 localTranslated.push_back(iteratorBufferKeys->shuffle[0]);
                 localTranslated.push_back(iteratorBufferKeys->shuffle[1]);
             }
         }
 
     }
-    if (ext_isDebugging) cout << endl;
     for (string const &s: localTranslated) {
         for (iteratorKeys = ext_keys.begin(); iteratorKeys != ext_keys.end(); iteratorKeys++) {
             if (iteratorKeys->shuffle == s) {  cout << iteratorKeys->letter; }
