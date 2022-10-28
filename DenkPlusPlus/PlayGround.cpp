@@ -8,16 +8,10 @@
 using namespace std;
 using namespace DataTypes;
 
+// Test field for ideas -->
 namespace Playground {
     static void MainPlayground() {
         auto start = chrono::high_resolution_clock::now();
-
-        list<int> used;
-        int carrier1;
-        for (int I = 0; I < 1000000; I++) {
-            used.push_back(rand() % 900);
-        }
-
 
         auto finish = std::chrono::high_resolution_clock::now();
         chrono::duration<double> elapsed = (finish - start) * 1000;
