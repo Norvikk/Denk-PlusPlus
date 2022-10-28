@@ -31,11 +31,21 @@ list<string> ProcessData::ext_processedData, ProcessData::ext_processedBufferDat
 // Root for sub-functions -->
 void EncryptClass::encrypt() {
     // NOTICE: Any output to the console before the STOP variable is called drastically increase compilation time
-    /* Diagnostics timer --> */ auto start = chrono::high_resolution_clock::now();
+    std::cout << ProcessData::ext_iterationData << " Iterations -> " << ext_messageData.size() << " chars" << endl;
+    std::cout << "------------------------------------------------------" << endl;
+    /* Diagnostics timer --> */ auto rootStart = chrono::high_resolution_clock::now();
 
+    auto start1 = chrono::high_resolution_clock::now();
     Protocols::EncryptClass::processData();
+    chrono::duration<double> elapsed1 = (std::chrono::high_resolution_clock::now() - start1) * 1000;
+
+    auto start2 = chrono::high_resolution_clock::now();
     Protocols::EncryptClass::bufferData();
+    chrono::duration<double> elapsed2 = (std::chrono::high_resolution_clock::now() - start2) * 1000;
+
+    auto start3 = chrono::high_resolution_clock::now();
     Protocols::EncryptClass::writeDataToFile();
+    chrono::duration<double> elapsed3 = (std::chrono::high_resolution_clock::now() - start3) * 1000;
 
     if (ext_isDebugging) {
         Protocols::EncryptClass::expelCrypt();
@@ -44,10 +54,12 @@ void EncryptClass::encrypt() {
 
     // Diagnostics timer output -->
     auto finish = std::chrono::high_resolution_clock::now();
-    chrono::duration<double> elapsed = (finish - start) * 1000;
-    std::cout << endl << ProcessData::ext_iterationData << " Iterations -> " << ext_messageData.size() << " chars" << endl;
-    std::cout << "Rounded Elapsed Time: " << round(elapsed.count()) << " ms" << " -- (" << elapsed.count() << " ms" << ")";
-
+    cout << "processData compiled in        => " << round(elapsed1.count()) << " ms" << endl
+         << "bufferData compiled in         => " << round(elapsed2.count()) << " ms" << endl
+         << "writeDataToFile compiled in    => " << round(elapsed3.count()) << " ms" << endl;
+    chrono::duration<double> elapsed = (finish - rootStart) * 1000;
+    std::cout << "------------------------------------------------------" << endl;
+    std::cout << "Rounded Time: " << round(elapsed.count()) << " ms" << " => " << elapsed.count() << " ms";
 }
 
 // Output every processed therefore encrypted data -->
@@ -147,11 +159,12 @@ void EncryptClass::bufferData() {
     }
 
     // Uses de-buffered entries and locally decrypts them with the keys -->
-    for (string const &s: localTranslated) {
+   /* for (string const &s: localTranslated) {
         for (iteratorKeys = ext_keys.begin(); iteratorKeys != ext_keys.end(); iteratorKeys++) {
             if (iteratorKeys->shuffle == s) { cout << iteratorKeys->letter; }
         }
     }
     std::cout << " [Decrypted (DEBUGGING)]";
+    */
 }
 
