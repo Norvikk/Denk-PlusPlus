@@ -27,7 +27,6 @@ list<DataTypesClass::ProtocolTypesClass::BufferKey>::iterator iteratorBufferKeys
 list<DataTypesClass::ProtocolTypesClass::BufferKey> ProcessData::ext_bufferKeys;
 list<string> ProcessData::ext_processedData, ProcessData::ext_processedBufferData;
 
-
 // Root for sub-functions -->
 void EncryptClass::encrypt() {
     // NOTICE: Any output to the console before the FINISH variable is called drastically increases compilation time
@@ -35,18 +34,9 @@ void EncryptClass::encrypt() {
     std::cout << "------------------------------------------------------" << endl;
     /* Diagnostics timer --> */ auto rootStart = chrono::high_resolution_clock::now();
 
-    auto start1 = chrono::high_resolution_clock::now();
-    Protocols::EncryptClass::processData();
-    chrono::duration<double> elapsed1 = (std::chrono::high_resolution_clock::now() - start1) * 1000;
-
-    auto start2 = chrono::high_resolution_clock::now();
-    Protocols::EncryptClass::bufferData();
-    chrono::duration<double> elapsed2 = (std::chrono::high_resolution_clock::now() - start2) * 1000;
-
-    auto start3 = chrono::high_resolution_clock::now();
-    Protocols::EncryptClass::writeDataToFile();
-    chrono::duration<double> elapsed3 = (std::chrono::high_resolution_clock::now() - start3) * 1000;
-
+    KennyLibraries::Diagnostics::getDiagnosticTimer("Processing phase (1/3)", (vFunctionCall)processData);
+    KennyLibraries::Diagnostics::getDiagnosticTimer("Buffering phase (2/3)", (vFunctionCall)bufferData);
+    KennyLibraries::Diagnostics::getDiagnosticTimer("Writing phase (3/3)", (vFunctionCall)writeDataToFile);
     if (ext_isDebugging) {
         Protocols::EncryptClass::expelCrypt();
         Protocols::EncryptClass::expelDecrypted();
@@ -54,10 +44,8 @@ void EncryptClass::encrypt() {
 
     // Diagnostics timer output -->
     auto finish = std::chrono::high_resolution_clock::now();
-    cout << "processData compiled in        => " << round(elapsed1.count()) << " ms" << endl
-         << "bufferData compiled in         => " << round(elapsed2.count()) << " ms" << endl
-         << "writeDataToFile compiled in    => " << round(elapsed3.count()) << " ms" << endl;
     chrono::duration<double> elapsed = (finish - rootStart) * 1000;
+    KennyLibraries::Diagnostics::setDiagnosticDataToOutput();
     std::cout << "------------------------------------------------------" << endl;
     std::cout << "Rounded Time: " << round(elapsed.count()) << " ms" << " => " << elapsed.count() << " ms";
 }
@@ -125,7 +113,7 @@ void EncryptClass::expelDecrypted() {
         }
     }
 }
-add global used entry
+
 // Links 2 encrypted entries into a short lengthened single use buffer key -->
 void EncryptClass::bufferData() {
     list<string> used, localTranslated;
