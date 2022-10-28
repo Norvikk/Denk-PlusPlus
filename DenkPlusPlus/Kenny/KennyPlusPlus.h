@@ -12,37 +12,29 @@ using namespace DataTypes;
 namespace KennyLibraries {
 
     namespace Data {
-        namespace Diagnostics {
-            class DataStyles {
+        namespace DiagnosticsData {
+            class Structs {
             public:
                 struct DiagnosticsInfo {
                     string name;
                     double runTime;
                 };
             };
-            extern list <Diagnostics::DataStyles::DiagnosticsInfo> ext_diagnosticsTimers;
+            extern list <DiagnosticsData::Structs::DiagnosticsInfo> ext_diagnosticsTimers;
         }
     }
+    namespace Tools{
+        class Get {
+        public:
+            static string randomString(int len);
+        };
+    }
 
-    class Get {
-    public:
-        static string randomString(int len);
-    };
 
-    class Diagnostics {
+    class DiagnosticsTasks {
     public:
         static void getDiagnosticTimer(const string& name, vFunctionCall funct2);
 
         static void setDiagnosticDataToOutput();
-    };
-
-    class Loop {
-    public:
-
-    };
-
-    class Output {
-    public:
-
     };
 }

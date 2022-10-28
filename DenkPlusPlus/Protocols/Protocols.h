@@ -23,6 +23,8 @@ namespace Protocols {
 
         static void bufferData();
 
+        static void decentralize();
+
     };
 
     class DecryptClass {

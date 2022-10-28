@@ -13,11 +13,11 @@ string ProcessData::ext_brickedDataPath, ProcessData::ext_keysDataPath, protocol
 
 bool ProcessData::ext_isDebugging = false;
 bool isPlayground = false;
-int ProcessData::ext_iterationData = 32000;
+int ProcessData::ext_iterationData = 64;
 
-string ProcessData::ext_messageData = "According to all known laws of aviation, there is no way a bee should be able to fly.\n"
-                                      "Its wings are too small to get its fat little body off the ground.\n"
-                                      "All right. Take ten, everybody. Wrap it up, guys.\n"
+string ProcessData::ext_messageData = "According to all known laws of aviation, there is no way a bee should be able to fly."
+                                      "Its wings are too small to get its fat little body off the ground."
+                                      "All right. Take ten, everybody. Wrap it up, guys."
                                       "I had virtually no rehearsal for that.";
 
 int main() {

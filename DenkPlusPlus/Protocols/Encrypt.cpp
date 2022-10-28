@@ -20,32 +20,40 @@ using namespace DataTypes;
 using namespace ProcessData;
 
 // Variable declaration field -->
+int bufferSizeThreshold;
 string outPathKey = "../DenkPlusPlus/Output/Keys.txt", outPathOutput = "../DenkPlusPlus/Output/Output.txt";
 list<DataTypesClass::ProtocolTypesClass::Key> ProcessData::ext_keys;
 list<DataTypesClass::ProtocolTypesClass::Key>::iterator iteratorKeys;
 list<DataTypesClass::ProtocolTypesClass::BufferKey>::iterator iteratorBufferKeys;
 list<DataTypesClass::ProtocolTypesClass::BufferKey> ProcessData::ext_bufferKeys;
 list<string> ProcessData::ext_processedData, ProcessData::ext_processedBufferData;
+list<long> ProcessData::ext_decentralizedData;
 
 // Root for sub-functions -->
 void EncryptClass::encrypt() {
+    bufferSizeThreshold = ProcessData::ext_iterationData * 4;
     // NOTICE: Any output to the console before the FINISH variable is called drastically increases compilation time
-    std::cout << ProcessData::ext_iterationData << " Iterations -> " << ext_messageData.size() << " chars" << endl;
+    std::cout << "[" << ProcessData::ext_iterationData << "] Iterations" << endl;
+    std::cout << "[" << bufferSizeThreshold << "] Buffer Iterations " << endl;
+    std::cout << "[" << ext_messageData.size() << "] Unit long decentralizer" << endl;
     std::cout << "------------------------------------------------------" << endl;
-    /* Diagnostics timer --> */ auto rootStart = chrono::high_resolution_clock::now();
+    /* DiagnosticsData timer --> */ auto rootStart = chrono::high_resolution_clock::now();
 
-    KennyLibraries::Diagnostics::getDiagnosticTimer("Processing phase (1/3)", (vFunctionCall)processData);
-    KennyLibraries::Diagnostics::getDiagnosticTimer("Buffering phase (2/3)", (vFunctionCall)bufferData);
-    KennyLibraries::Diagnostics::getDiagnosticTimer("Writing phase (3/3)", (vFunctionCall)writeDataToFile);
+    KennyLibraries::DiagnosticsTasks::getDiagnosticTimer("Processing phase (1/4)", (vFunctionCall) processData);
+    KennyLibraries::DiagnosticsTasks::getDiagnosticTimer("Buffering phase (2/4)", (vFunctionCall) bufferData);
+    KennyLibraries::DiagnosticsTasks::getDiagnosticTimer("Decentralizing (3/4)", (vFunctionCall) decentralize);
+    KennyLibraries::DiagnosticsTasks::getDiagnosticTimer("Writing phase (4/4)", (vFunctionCall) writeDataToFile);
+
+
     if (ext_isDebugging) {
         Protocols::EncryptClass::expelCrypt();
         Protocols::EncryptClass::expelDecrypted();
     }
 
-    // Diagnostics timer output -->
+    // DiagnosticsData timer output -->
     auto finish = std::chrono::high_resolution_clock::now();
     chrono::duration<double> elapsed = (finish - rootStart) * 1000;
-    KennyLibraries::Diagnostics::setDiagnosticDataToOutput();
+    KennyLibraries::DiagnosticsTasks::setDiagnosticDataToOutput();
     std::cout << "------------------------------------------------------" << endl;
     std::cout << "Rounded Time: " << round(elapsed.count()) << " ms" << " => " << elapsed.count() << " ms";
 }
@@ -72,7 +80,7 @@ void EncryptClass::processData() {
     for (char c: ext_messageData) {
         if (!(find(used.begin(), used.end(), c) != used.end())) {
             temporary.letter = c;
-            temporary.shuffle = KennyLibraries::Get::randomString(ext_iterationData);
+            temporary.shuffle = KennyLibraries::Tools::Get::randomString(ext_iterationData);
             ext_keys.push_back(temporary);
             used.push_back(c);
         }
@@ -94,14 +102,22 @@ void EncryptClass::writeDataToFile() {
 
     // Writes to Output
     ofstream outputFile(outPathOutput);
-    for (string const &s: ext_processedData) { outputFile << s; }
+    for (const auto &a: ProcessData::ext_decentralizedData) outputFile << a;
     outputFile.close();
 
     // Writes to Key
     ofstream keyFile(outPathKey);
-    for (iteratorKeys = ext_keys.begin(); iteratorKeys != ext_keys.end(); iteratorKeys++) { keyFile << iteratorKeys->letter << " " << iteratorKeys->shuffle << " " << endl;}
-    keyFile << endl  << "SPLIT" << endl << endl;
-    for (iteratorBufferKeys = ext_bufferKeys.begin(); iteratorBufferKeys != ext_bufferKeys.end(); iteratorBufferKeys++) { keyFile << iteratorBufferKeys->shuffle[0] << iteratorBufferKeys->shuffle[1] << " " << iteratorBufferKeys->reShuffle << " " << endl;}
+    for (iteratorKeys = ext_keys.begin(); iteratorKeys != ext_keys.end(); iteratorKeys++) {
+        keyFile << iteratorKeys->letter << "\t" << iteratorKeys->shuffle << endl;
+    }
+    keyFile << endl << "SPLIT" << endl;
+    for (iteratorBufferKeys = ext_bufferKeys.begin();
+         iteratorBufferKeys != ext_bufferKeys.end(); iteratorBufferKeys++) {
+        keyFile << iteratorBufferKeys->shuffle[0] << iteratorBufferKeys->shuffle[1] << " "
+                << iteratorBufferKeys->reShuffle << "PARAMETER";
+    }
+    keyFile << endl << "SPLIT" << endl;
+    for (const auto &y: ProcessData::ext_decentralizedData) keyFile << y << ".";
     keyFile.close();
 }
 
@@ -123,17 +139,13 @@ void EncryptClass::bufferData() {
     for (string const &s: ext_processedData) {
         if ((i % 2) == 0) {
             carrier1.shuffle[1] = s;
-            carrier1.reShuffle = KennyLibraries::Get::randomString(64);
+            carrier1.reShuffle = KennyLibraries::Tools::Get::randomString(bufferSizeThreshold);
             ProcessData::ext_processedBufferData.push_back(carrier1.reShuffle);
             ProcessData::ext_bufferKeys.push_back(carrier1);
         } else carrier1.shuffle[0] = s;
         i++;
     }
-
-    for (iteratorBufferKeys = ext_bufferKeys.begin();
-         iteratorBufferKeys != ext_bufferKeys.end(); iteratorBufferKeys++) {
-    }
-
+/*
     for (string const &s: ext_processedBufferData) {
         for (iteratorBufferKeys = ext_bufferKeys.begin();
              iteratorBufferKeys != ext_bufferKeys.end(); iteratorBufferKeys++) {
@@ -146,12 +158,20 @@ void EncryptClass::bufferData() {
     }
 
     // Uses de-buffered entries and locally decrypts them with the keys -->
-   /* for (string const &s: localTranslated) {
+    for (string const &s: localTranslated) {
         for (iteratorKeys = ext_keys.begin(); iteratorKeys != ext_keys.end(); iteratorKeys++) {
             if (iteratorKeys->shuffle == s) { cout << iteratorKeys->letter; }
         }
     }
     std::cout << " [Decrypted (DEBUGGING)]";
     */
+}
+
+void EncryptClass::decentralize() {
+    for (string const &s: ProcessData::ext_processedBufferData) {
+        for (char const &c: s) {
+            ext_decentralizedData.push_back((long) c + ProcessData::ext_messageData.size());
+        }
+    }
 }
 
