@@ -14,12 +14,11 @@ string ProcessData::ext_brickedDataPath, ProcessData::ext_keysDataPath, protocol
 bool ProcessData::ext_isDebugging = false;
 bool isPlayground = false;
 int ProcessData::ext_iterationData = 16;
-string ProcessData::ext_messageData =
-                                      "Hold it. Let's just stop for a second. Hold it.\n"
-                                      "I'm not making a major life decision during a production number!\n"
+string ProcessData::ext_messageData = "According to all known laws of aviation, there is no way a bee should be able to fly.\n"
+                                      "Its wings are too small to get its fat little body off the ground.\n"
+
                                       "All right. Take ten, everybody. Wrap it up, guys.\n"
                                       "I had virtually no rehearsal for that.";
-// bee movie script
 
 int main() {
     if (ext_messageData.size() % 2 != 0) ProcessData::ext_messageData += " ";

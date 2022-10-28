@@ -30,7 +30,7 @@ list<string> ProcessData::ext_processedData, ProcessData::ext_processedBufferDat
 
 // Root for sub-functions -->
 void EncryptClass::encrypt() {
-    // NOTICE: Any output to the console before the STOP variable is called drastically increase compilation time
+    // NOTICE: Any output to the console before the FINISH variable is called drastically increases compilation time
     std::cout << ProcessData::ext_iterationData << " Iterations -> " << ext_messageData.size() << " chars" << endl;
     std::cout << "------------------------------------------------------" << endl;
     /* Diagnostics timer --> */ auto rootStart = chrono::high_resolution_clock::now();
@@ -112,7 +112,7 @@ void EncryptClass::writeDataToFile() {
     // Writes to Key
     ofstream keyFile(outPathKey);
     for (iteratorKeys = ext_keys.begin(); iteratorKeys != ext_keys.end(); iteratorKeys++) { keyFile << iteratorKeys->letter << " " << iteratorKeys->shuffle << " " << endl;}
-    keyFile << endl << endl << endl << endl;
+    keyFile << endl  << "SPLIT" << endl << endl;
     for (iteratorBufferKeys = ext_bufferKeys.begin(); iteratorBufferKeys != ext_bufferKeys.end(); iteratorBufferKeys++) { keyFile << iteratorBufferKeys->shuffle[0] << iteratorBufferKeys->shuffle[1] << " " << iteratorBufferKeys->reShuffle << " " << endl;}
     keyFile.close();
 }
@@ -125,11 +125,11 @@ void EncryptClass::expelDecrypted() {
         }
     }
 }
-
+add global used entry
 // Links 2 encrypted entries into a short lengthened single use buffer key -->
 void EncryptClass::bufferData() {
     list<string> used, localTranslated;
-    string carrier;
+
     DataTypesClass::ProtocolTypesClass::BufferKey carrier1;
     int i = -1;
     for (string const &s: ext_processedData) {
@@ -138,7 +138,6 @@ void EncryptClass::bufferData() {
             carrier1.reShuffle = KennyLibraries::Get::randomString(64);
             ProcessData::ext_processedBufferData.push_back(carrier1.reShuffle);
             ProcessData::ext_bufferKeys.push_back(carrier1);
-            carrier = "";
         } else carrier1.shuffle[0] = s;
         i++;
     }
