@@ -10,9 +10,9 @@ list<KennyLibraries::Data::DiagnosticsData::Structs::DiagnosticsInfo>::iterator 
 namespace KennyLibraries {
 
     string KennyLibraries::Tools::Get::randomString(int len) {
-        static const char alphanum[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()`~-_=+[{]{|;:'\",<>/?";
+        static const char alphanum[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()`~-=+[{]{|;:'\",<>/?";
         string tmp_s;
-        for (long i = 0; i < len; ++i) { tmp_s += alphanum[rand() % 92]; } //93 - 1 = letter amount in char
+        for (long i = 0; i < len; ++i) { tmp_s += alphanum[rand() % 91]; } //93 - 1 = letter amount in char
         return tmp_s;
 
 
@@ -39,6 +39,7 @@ namespace KennyLibraries {
         for (diagnosticsIteratorTimers = KennyLibraries::Data::DiagnosticsData::ext_diagnosticsTimers.begin(); diagnosticsIteratorTimers != KennyLibraries::Data::DiagnosticsData::ext_diagnosticsTimers.end(); diagnosticsIteratorTimers++ ){
             std::cout << diagnosticsIteratorTimers->name << " has compiled in\t\t=> " << diagnosticsIteratorTimers->runTime << " ms (" << round(diagnosticsIteratorTimers->runTime) << " ms)" << std::endl;
         }
+        KennyLibraries::Data::DiagnosticsData::ext_diagnosticsTimers.clear();
     }
 
 }

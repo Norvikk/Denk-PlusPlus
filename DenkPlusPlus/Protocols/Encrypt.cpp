@@ -17,23 +17,23 @@
 using namespace KennyLibraries; // Versioned to this project
 using namespace Protocols;
 using namespace DataTypes;
-using namespace ProcessData;
+using namespace EncryptData;
 
 // Variable declaration field -->
 int bufferSizeThreshold;
 string outPathKey = "../DenkPlusPlus/Output/Keys.txt", outPathOutput = "../DenkPlusPlus/Output/Output.txt";
-list<DataTypesClass::ProtocolTypesClass::Key> ProcessData::ext_keys;
+list<DataTypesClass::ProtocolTypesClass::Key> EncryptData::ext_keys;
 list<DataTypesClass::ProtocolTypesClass::Key>::iterator iteratorKeys;
 list<DataTypesClass::ProtocolTypesClass::BufferKey>::iterator iteratorBufferKeys;
-list<DataTypesClass::ProtocolTypesClass::BufferKey> ProcessData::ext_bufferKeys;
-list<string> ProcessData::ext_processedData, ProcessData::ext_processedBufferData;
-list<long> ProcessData::ext_decentralizedData;
+list<DataTypesClass::ProtocolTypesClass::BufferKey> EncryptData::ext_bufferKeys;
+list<string> EncryptData::ext_processedData, EncryptData::ext_processedBufferData;
+list<long> EncryptData::ext_decentralizedData;
 
 // Root for sub-functions -->
 void EncryptClass::encrypt() {
-    bufferSizeThreshold = ProcessData::ext_iterationData * 4;
+    bufferSizeThreshold = EncryptData::ext_iterationData * 4;
     // NOTICE: Any output to the console before the FINISH variable is called drastically increases compilation time
-    std::cout << "[" << ProcessData::ext_iterationData << "] Iterations" << endl;
+    std::cout << "[" << EncryptData::ext_iterationData << "] Iterations" << endl;
     std::cout << "[" << bufferSizeThreshold << "] Buffer Iterations " << endl;
     std::cout << "[" << ext_messageData.size() << "] Unit long decentralizer" << endl;
     std::cout << "------------------------------------------------------" << endl;
@@ -55,7 +55,8 @@ void EncryptClass::encrypt() {
     chrono::duration<double> elapsed = (finish - rootStart) * 1000;
     KennyLibraries::DiagnosticsTasks::setDiagnosticDataToOutput();
     std::cout << "------------------------------------------------------" << endl;
-    std::cout << "Rounded Time: " << round(elapsed.count()) << " ms" << " => " << elapsed.count() << " ms";
+    std::cout << "Rounded Time: " << round(elapsed.count()) << " ms" << " => " << elapsed.count() << " ms"<< endl;
+    std::cout << "------------------------------------------------------" << endl << endl << endl;
 }
 
 // Output every processed therefore encrypted data -->
@@ -100,25 +101,23 @@ void EncryptClass::writeDataToFile() {
     // Create directory
     _mkdir("../DenkPlusPlus/Output");
 
-    // Writes to Output
-    ofstream outputFile(outPathOutput);
-    for (const auto &a: ProcessData::ext_decentralizedData) outputFile << a;
-    outputFile.close();
-
     // Writes to Key
     ofstream keyFile(outPathKey);
     for (iteratorKeys = ext_keys.begin(); iteratorKeys != ext_keys.end(); iteratorKeys++) {
-        keyFile << iteratorKeys->letter << "\t" << iteratorKeys->shuffle << endl;
+        keyFile << iteratorKeys->letter << "_" << iteratorKeys->shuffle << endl;
     }
-    keyFile << endl << "SPLIT" << endl;
+    keyFile << "SPLIT" << endl;
     for (iteratorBufferKeys = ext_bufferKeys.begin();
          iteratorBufferKeys != ext_bufferKeys.end(); iteratorBufferKeys++) {
-        keyFile << iteratorBufferKeys->shuffle[0] << iteratorBufferKeys->shuffle[1] << " "
-                << iteratorBufferKeys->reShuffle << "PARAMETER";
+        keyFile << iteratorBufferKeys->shuffle[0] << iteratorBufferKeys->shuffle[1] << "_"
+                << iteratorBufferKeys->reShuffle << endl;
     }
-    keyFile << endl << "SPLIT" << endl;
-    for (const auto &y: ProcessData::ext_decentralizedData) keyFile << y << ".";
     keyFile.close();
+
+    // Writes to Output
+    ofstream outputFile(outPathOutput);
+    for (const auto &a: EncryptData::ext_decentralizedData) outputFile << a;
+    outputFile.close();
 }
 
 // Outputs each encrypted letter translated -->
@@ -140,8 +139,8 @@ void EncryptClass::bufferData() {
         if ((i % 2) == 0) {
             carrier1.shuffle[1] = s;
             carrier1.reShuffle = KennyLibraries::Tools::Get::randomString(bufferSizeThreshold);
-            ProcessData::ext_processedBufferData.push_back(carrier1.reShuffle);
-            ProcessData::ext_bufferKeys.push_back(carrier1);
+            EncryptData::ext_processedBufferData.push_back(carrier1.reShuffle);
+            EncryptData::ext_bufferKeys.push_back(carrier1);
         } else carrier1.shuffle[0] = s;
         i++;
     }
@@ -168,9 +167,9 @@ void EncryptClass::bufferData() {
 }
 
 void EncryptClass::decentralize() {
-    for (string const &s: ProcessData::ext_processedBufferData) {
+    for (string const &s: EncryptData::ext_processedBufferData) {
         for (char const &c: s) {
-            ext_decentralizedData.push_back((long) c + ProcessData::ext_messageData.size());
+            ext_decentralizedData.push_back((long) c + EncryptData::ext_messageData.size());
         }
     }
 }

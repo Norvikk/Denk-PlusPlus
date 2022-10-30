@@ -13,6 +13,9 @@ namespace Protocols {
     public:
         static void encrypt();
 
+
+
+    private:
         static void expelCrypt();
 
         static void processData();
@@ -24,12 +27,21 @@ namespace Protocols {
         static void bufferData();
 
         static void decentralize();
-
     };
 
     class DecryptClass {
     public:
         static void decrypt();
+
+
+
+    private:
+        static void readBricked();
+        static void readKeys();
+        static void centralize();
+        static void output();
+
+
     };
 
 }

@@ -5,7 +5,7 @@
 using namespace std;
 using namespace DataTypes;
 
-namespace ProcessData {
+namespace EncryptData {
     extern string ext_messageData, ext_brickedDataPath, ext_keysDataPath;
     extern int ext_iterationData;
 
@@ -15,6 +15,10 @@ namespace ProcessData {
     extern list <string> ext_processedData, ext_processedBufferData;
 
     extern bool ext_isDebugging;
+}
+
+namespace DecryptData {
+
 }
 
 
