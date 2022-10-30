@@ -55,7 +55,7 @@ void EncryptClass::encrypt() {
     chrono::duration<double> elapsed = (finish - rootStart) * 1000;
     KennyLibraries::DiagnosticsTasks::setDiagnosticDataToOutput();
     std::cout << "------------------------------------------------------" << endl;
-    std::cout << "Rounded Time: " << round(elapsed.count()) << " ms" << " => " << elapsed.count() << " ms"<< endl;
+    std::cout << "Rounded Time: " << round(elapsed.count()) << " ms" << " => " << elapsed.count() << " ms" << endl;
     std::cout << "------------------------------------------------------" << endl << endl << endl;
 }
 

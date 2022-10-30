@@ -14,7 +14,6 @@ namespace Protocols {
         static void encrypt();
 
 
-
     private:
         static void expelCrypt();
 
@@ -34,11 +33,13 @@ namespace Protocols {
         static void decrypt();
 
 
-
     private:
         static void readBricked();
+
         static void readKeys();
+
         static void centralize();
+
         static void output();
 
 

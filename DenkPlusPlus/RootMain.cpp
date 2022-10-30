@@ -42,7 +42,9 @@ int main() {
     if (protocol == "1") {
         cout << "Message to encrypt:" << endl;
         cin >> EncryptData::ext_messageData;
-        cout << "Iterations:\nLow [16] [32]\nMedium [64] [128]\nHigh [256] [512]\nAbsurd [1024+]\nCustom [Any other number]\n----------------\nInput the number  " << endl;
+        cout
+                << "Iterations:\nLow [16] [32]\nMedium [64] [128]\nHigh [256] [512]\nAbsurd [1024+]\nCustom [Any other number]\n----------------\nInput the number  "
+                << endl;
         cin >> EncryptData::ext_iterationData;
         Protocols::EncryptClass::encrypt();
     } else if (protocol == "2") {

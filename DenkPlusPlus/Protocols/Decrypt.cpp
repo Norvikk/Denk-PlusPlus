@@ -87,8 +87,8 @@ void DecryptClass::readKeys() {
             string doubleWordOne_WordTwo;
             int iterator = 0;
 
-            for(char c: doubleWordOne){
-                if (iterator < (doubleWordOne.size()/2)) doubleWordOne_WordOne += c;
+            for (char c: doubleWordOne) {
+                if (iterator < (doubleWordOne.size() / 2)) doubleWordOne_WordOne += c;
                 else doubleWordOne_WordTwo += c;
                 iterator++;
             }
@@ -116,15 +116,14 @@ void DecryptClass::centralize() {
     int dictionarySize = unformattedBrickedOutput.length() / bufferSize / 3;
 
 
-    for(char c: unformattedBrickedOutput){
-        if((num % 3) == 0){
+    for (char c: unformattedBrickedOutput) {
+        if ((num % 3) == 0) {
             str += c;
             cha = char(stoi(str) - dictionarySize);
             centralizedLetters.push_back(cha);
             num = 0;
             str = "";
-        }
-        else{
+        } else {
             str += c;
         }
         num++;
@@ -133,22 +132,23 @@ void DecryptClass::centralize() {
     string word;
     int iterator = 1;
     list<string> bufferedEntry;
-    for(char c: centralizedLetters){
-        if((iterator % (bufferSize * 2) == 0)){
+    for (char c: centralizedLetters) {
+        if ((iterator % (bufferSize * 2) == 0)) {
             word += c;
             bufferedEntry.push_back(word);
             word = "";
-        } else{
+        } else {
             word += c;
         }
 
         iterator++;
     }
 
-    for(string c: bufferedEntry){
+    for (string c: bufferedEntry) {
 
-        for(iterator_bufferKeyStructure = bufferKeyStructure.begin(); iterator_bufferKeyStructure != bufferKeyStructure.end(); iterator_bufferKeyStructure++){
-            if (iterator_bufferKeyStructure->reShuffle == c){
+        for (iterator_bufferKeyStructure = bufferKeyStructure.begin();
+             iterator_bufferKeyStructure != bufferKeyStructure.end(); iterator_bufferKeyStructure++) {
+            if (iterator_bufferKeyStructure->reShuffle == c) {
                 readyToDecryptWords.push_back(iterator_bufferKeyStructure->shuffle[0]);
                 readyToDecryptWords.push_back(iterator_bufferKeyStructure->shuffle[1]);
             }
@@ -159,7 +159,8 @@ void DecryptClass::centralize() {
 
 void DecryptClass::output() {
     for (string const &s: readyToDecryptWords) {
-        for (iterator_keyStructure = keyStructure.begin(); iterator_keyStructure != keyStructure.end(); iterator_keyStructure++) {
+        for (iterator_keyStructure = keyStructure.begin();
+             iterator_keyStructure != keyStructure.end(); iterator_keyStructure++) {
             if (iterator_keyStructure->shuffle == s) { cout << iterator_keyStructure->letter; }
         }
     }
