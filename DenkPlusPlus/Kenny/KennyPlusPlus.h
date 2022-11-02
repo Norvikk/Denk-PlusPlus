@@ -27,6 +27,7 @@ namespace KennyLibraries {
         class Get {
         public:
             static string randomString(int len);
+            static int randomInt(int minSize, int maxSize);
         };
     }
 

@@ -18,6 +18,10 @@ namespace KennyLibraries {
 
     }
 
+    int Tools::Get::randomInt(int minSize, int maxSize) {
+        return rand() % maxSize + minSize;
+    }
+
     void DiagnosticsTasks::getDiagnosticTimer(const string& name, vFunctionCall funct2) {
         /* DiagnosticsData timer --> */
         auto rootStart = chrono::high_resolution_clock::now();

@@ -20,7 +20,7 @@ using namespace DataTypes;
 using namespace EncryptData;
 
 // Variable declaration field -->
-int bufferSizeThreshold;
+int bufferSizeThreshold, decentralizerCount;
 string outPathKey = "../DenkPlusPlus/Output/Keys.txt", outPathOutput = "../DenkPlusPlus/Output/Output.txt";
 list<DataTypesClass::ProtocolTypesClass::Key> EncryptData::ext_keys;
 list<DataTypesClass::ProtocolTypesClass::Key>::iterator iteratorKeys;
@@ -56,7 +56,7 @@ void EncryptClass::encrypt() {
     KennyLibraries::DiagnosticsTasks::setDiagnosticDataToOutput();
     std::cout << "------------------------------------------------------" << endl;
     std::cout << "Rounded Time: " << round(elapsed.count()) << " ms" << " => " << elapsed.count() << " ms" << endl;
-    std::cout << "------------------------------------------------------" << endl << endl << endl;
+    std::cout << "------------------------------------------------------" << endl << endl;
 }
 
 // Output every processed therefore encrypted data -->
@@ -74,7 +74,8 @@ void EncryptClass::expelCrypt() {
 
 // Standard obfuscating of each character -->
 void EncryptClass::processData() {
-
+    decentralizerCount = EncryptData::ext_messageData.length();
+    // cout << decentralizerCount << " ;" << endl;
     // Gets Keys
     list<char> used;
     DataTypesClass::ProtocolTypesClass::Key temporary;
@@ -103,6 +104,7 @@ void EncryptClass::writeDataToFile() {
 
     // Writes to Key
     ofstream keyFile(outPathKey);
+    keyFile << "DECENTRALIZE" << endl << decentralizerCount << endl;
     for (iteratorKeys = ext_keys.begin(); iteratorKeys != ext_keys.end(); iteratorKeys++) {
         keyFile << iteratorKeys->letter << "_" << iteratorKeys->shuffle << endl;
     }

@@ -14,7 +14,7 @@ using namespace KennyLibraries;
 using namespace EncryptData;
 
 string unformattedBrickedOutput;
-int bufferSize;
+int bufferSize, decentralizeCount;
 list<string> readyToDecryptWords;
 list<DataTypesClass::ProtocolTypesClass::Key> keyStructure;
 list<DataTypesClass::ProtocolTypesClass::BufferKey> bufferKeyStructure;
@@ -51,13 +51,16 @@ void DecryptClass::readBricked() {
 
 void DecryptClass::readKeys() {
     bool hasSplit;
+    int hasReadDecentralization = 0;
     DataTypesClass::ProtocolTypesClass::Key KeyTemporal;
     DataTypesClass::ProtocolTypesClass::BufferKey BufferKeyTemporal;
     ifstream input(EncryptData::ext_keysDataPath);
 
     for (std::string line; getline(input, line);) {
-        if (line == "SPLIT") { hasSplit = true; }
+        if (line == "DECENTRALIZE") { hasReadDecentralization = 1; }
+        else if (hasReadDecentralization ==  1) {decentralizeCount = stoi(line); cout << decentralizeCount << " Test run" << endl; hasReadDecentralization = 2; }
 
+        if (line == "SPLIT") { hasSplit = true; }
         if (!hasSplit) {
             char charOne;
             string wordTwo;
@@ -113,15 +116,16 @@ void DecryptClass::centralize() {
     int num = 1;
     string str;
     char cha;
-    int dictionarySize = unformattedBrickedOutput.length() / bufferSize / 3;
+    int iterationSize = 3;
 
 
     for (char c: unformattedBrickedOutput) {
-        if ((num % 3) == 0) {
+        if ((num % iterationSize) == 0) {
             str += c;
-            cha = char(stoi(str) - dictionarySize);
+            cha = char(stoi(str) - decentralizeCount);
             centralizedLetters.push_back(cha);
             num = 0;
+           // cout << str << endl;
             str = "";
         } else {
             str += c;

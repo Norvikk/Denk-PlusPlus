@@ -2,12 +2,14 @@
 #include "Protocols/Protocols.h"
 #include "PlayGround.cpp"
 #include "DataTypes/UniversalData.h"
+#include "Kenny/KennyPlusPlus.h"
 
 
 using namespace std;
 using namespace Protocols;
 using namespace Playground;
 using namespace EncryptData;
+using namespace KennyLibraries;
 
 //DECRYPT
 string EncryptData::ext_brickedDataPath = "../DenkPlusPlus/Output/Output.txt", //Hard Coded
@@ -18,18 +20,14 @@ string protocol = "1"; //Hard coded
 bool EncryptData::ext_isDebugging = false; //Debugging
 int EncryptData::ext_iterationData = 8; //Hard coded
 
-
-
-
-string EncryptData::ext_messageData = "According to all known laws of aviation, there is no way a bee should be able to fly."
-                                      " Its wings are too small to get its fat little body off the ground."
-                                      " All right. Take ten, everybody. Wrap it up, guys."
-                                      " I had virtually no rehearsal for that."; //Hard coded (Bee Movie Script)
+string EncryptData::ext_messageData;
 
 int main() {
     if (ext_messageData.size() % 2 != 0) EncryptData::ext_messageData += " ";
     srand(GetTickCount());
-
+   // ext_messageData = KennyLibraries::Tools::Get::randomString(KennyLibraries::Tools::Get::randomInt(300, 955));
+   ext_messageData = "V7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3Ov";
+        // TODO - fix why this works when it wants to. Fucked up => DE/CE/Ntralizer
     Protocols::EncryptClass::encrypt();
     Protocols::DecryptClass::decrypt();
 
