@@ -19,7 +19,7 @@ namespace KennyLibraries {
     }
 
     int Tools::Get::randomInt(int minSize, int maxSize) {
-        return rand() % maxSize + minSize;
+        return minSize + (rand() % maxSize);
     }
 
     void DiagnosticsTasks::getDiagnosticTimer(const string& name, vFunctionCall funct2) {

@@ -171,7 +171,7 @@ void EncryptClass::bufferData() {
 void EncryptClass::decentralize() {
     for (string const &s: EncryptData::ext_processedBufferData) {
         for (char const &c: s) {
-            ext_decentralizedData.push_back((long) c + EncryptData::ext_messageData.size());
+            ext_decentralizedData.push_back((signed long) c + decentralizerCount);
         }
     }
 }

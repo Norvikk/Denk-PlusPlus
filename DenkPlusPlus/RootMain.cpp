@@ -3,6 +3,7 @@
 #include "PlayGround.cpp"
 #include "DataTypes/UniversalData.h"
 #include "Kenny/KennyPlusPlus.h"
+#include "thread"
 
 
 using namespace std;
@@ -23,11 +24,16 @@ int EncryptData::ext_iterationData = 8; //Hard coded
 string EncryptData::ext_messageData;
 
 int main() {
-    if (ext_messageData.size() % 2 != 0) EncryptData::ext_messageData += " ";
     srand(GetTickCount());
-   // ext_messageData = KennyLibraries::Tools::Get::randomString(KennyLibraries::Tools::Get::randomInt(300, 955));
-   ext_messageData = "V7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3OV7g[^&^X'&p;vM`wN0hWMk@~!2W)[INtV%pfA)>/)PEoFKjRmby]yx3xoi1m6(7B-s5T%#nuzzah5fR;wR8aJo8>nd|&o,4wl8oBIX*'WF%U:~Q@2wd2s3Ov";
-        // TODO - fix why this works when it wants to. Fucked up => DE/CE/Ntralizer
+    //ext_messageData = KennyLibraries::Tools::Get::randomString(KennyLibraries::Tools::Get::randomInt(100, 800));
+    ext_messageData = "TestName TestPaswordItemsabababababababbaabbabababab \t TestName tESTpasswordafkjsdfskdfsdafsdafasdffdsffdsfdsasfdddasfds \t Testname GTGFGGFGFGFGFGFGFGFGF";
+    if (ext_messageData.size() % 2 != 0) EncryptData::ext_messageData += " ";
+
+    while (ext_messageData.size() % 3 != 0 && ext_messageData.size() % 3 != 0) {
+        ext_messageData += "-";
+    }
+
+
     Protocols::EncryptClass::encrypt();
     Protocols::DecryptClass::decrypt();
 

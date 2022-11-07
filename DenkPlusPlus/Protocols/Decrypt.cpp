@@ -27,7 +27,8 @@ void DecryptClass::decrypt() {
     auto rootStart = chrono::high_resolution_clock::now();
     KennyLibraries::DiagnosticsTasks::getDiagnosticTimer("Bricked reading phase (1/4)", (vFunctionCall) readBricked);
     KennyLibraries::DiagnosticsTasks::getDiagnosticTimer("Key reading phase (2/4)\t", (vFunctionCall) readKeys);
-    KennyLibraries::DiagnosticsTasks::getDiagnosticTimer("Centralizing phase (3/4)", (vFunctionCall) centralize);
+    KennyLibraries::DiagnosticsTasks::getDiagnosticTimer("DISABLED: Centralizing phase (3/4)",
+                                                         (vFunctionCall) centralize);
     KennyLibraries::DiagnosticsTasks::getDiagnosticTimer("Outputting phase (4/4)\t", (vFunctionCall) output);
 
 
@@ -118,14 +119,14 @@ void DecryptClass::centralize() {
     char cha;
     int iterationSize = 3;
 
-
     for (char c: unformattedBrickedOutput) {
         if ((num % iterationSize) == 0) {
             str += c;
-            cha = char(stoi(str) - decentralizeCount);
+            int charCode = stoi(str) - decentralizeCount;
+            cha = char(charCode);
             centralizedLetters.push_back(cha);
             num = 0;
-           // cout << str << endl;
+            // cout << str << endl;
             str = "";
         } else {
             str += c;
